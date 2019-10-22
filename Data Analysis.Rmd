@@ -1,0 +1,30 @@
+---
+title: "Data Analysis using R"
+output: html_notebook
+---
+
+### Import necessary packages
+
+I will first import all the necessary packages. As I'll do data analysis, I'll use R built in functions and also `ggplot` to plot certain graphs about the data to get better insights into it.
+
+```{r}
+install.packages('ggplot2')
+library('ggplot2')
+```
+
+### Import data
+
+The next step is to import the data that we will work with. I've taken the dataset from [Kaggle](https://www.kaggle.com/joniarroba/noshowappointments/download) about **medical apppointments** with 13 features and a lable describing whether the person showed up for the appointment or not.
+
+```{r}
+medical.dataset <- read.csv('data/dataset.csv', header = TRUE, sep = ',')
+head(medical.dataset)
+```
+
+The dataset is now loaded into the notebook. Let's start exploring more information about the data.
+
+### Exploratory data analysis
+
+#### Dataset exploration
+
+#### Visualizations
