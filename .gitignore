@@ -1,0 +1,13 @@
+# Python environment files
+/include
+/bin
+/lib
+/data
+/share
+/etc
+
+# Python files
+.Python
+
+# Data Store files
+.DS_Store
