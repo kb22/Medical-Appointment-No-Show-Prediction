@@ -1763,14 +1763,19 @@ Content type 'application/x-gzip' length 3973186 bytes (3.8 MB)
 ==================================================
 downloaded 3.8 MB</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5UaGUgZG93bmxvYWRlZCBiaW5hcnkgcGFja2FnZXMgYXJlIGluXG5cdC92YXIvZm9sZGVycy95ci8xZ2x0M3o5czYxZ2NqazR6cXM4MmYzY3cwMDAwZ24vVC8vUnRtcHBNM0xNRC9kb3dubG9hZGVkX3BhY2thZ2VzXG4ifQ== -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5UaGUgZG93bmxvYWRlZCBiaW5hcnkgcGFja2FnZXMgYXJlIGluXG5cdC92YXIvZm9sZGVycy95ci8xZ2x0M3o5czYxZ2NqazR6cXM4MmYzY3cwMDAwZ24vVC8vUnRtcEhleU5EeC9kb3dubG9hZGVkX3BhY2thZ2VzXG4ifQ== -->
 <pre><code>
 The downloaded binary packages are in
-    /var/folders/yr/1glt3z9s61gcjk4zqs82f3cw0000gn/T//RtmppM3LMD/downloaded_packages</code></pre>
+    /var/folders/yr/1glt3z9s61gcjk4zqs82f3cw0000gn/T//RtmpHeyNDx/downloaded_packages</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSgnZ2dwbG90MicpXG5gYGAifQ== -->
 <pre class="r"><code>library('ggplot2')</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUmVnaXN0ZXJlZCBTMyBtZXRob2Qgb3ZlcndyaXR0ZW4gYnkgJ2RwbHlyJzpcbiAgbWV0aG9kICAgICAgICAgICBmcm9tXG4gIHByaW50LnJvd3dpc2VfZGYgICAgIFxuIn0= -->
+<pre><code>Registered S3 method overwritten by 'dplyr':
+  method           from
+  print.rowwise_df     </code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -1796,16 +1801,89 @@ head(medical.dataset)</code></pre>
 </div>
 <div id="exploratory-data-analysis" class="section level3">
 <h3>Exploratory data analysis</h3>
+<p>Let’s start the exploratory analysis of the dataset.</p>
 <div id="dataset-exploration" class="section level4">
 <h4>Dataset exploration</h4>
-</div>
-<div id="visualizations" class="section level4">
-<h4>Visualizations</h4>
+<p>Let’s explore the information about the datset.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQocGFzdGUoXCJSb3dzOiBcIiwgbnJvdyhtZWRpY2FsLmRhdGFzZXQpKSlcbmBgYCJ9 -->
+<pre class="r"><code>print(paste(&quot;Rows: &quot;, nrow(medical.dataset)))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiUm93czogIDExMDUyN1wiXG4ifQ== -->
+<pre><code>[1] &quot;Rows:  110527&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQocGFzdGUoXCJDb2x1bW5zOiBcIiwgbmNvbChtZWRpY2FsLmRhdGFzZXQpKSlcbmBgYCJ9 -->
+<pre class="r"><code>print(paste(&quot;Columns: &quot;, ncol(medical.dataset)))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiQ29sdW1uczogIDE0XCJcbiJ9 -->
+<pre><code>[1] &quot;Columns:  14&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>The dataset has 110,527 rows and 14 columns out of which we know we have 13 features and 1 target.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmFtZXMobWVkaWNhbC5kYXRhc2V0KVxuYGBgIn0= -->
+<pre class="r"><code>names(medical.dataset)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIlBhdGllbnRJZFwiICAgICAgXCJBcHBvaW50bWVudElEXCIgIFwiR2VuZGVyXCIgICAgICAgICBcIlNjaGVkdWxlZERheVwiICAgXCJBcHBvaW50bWVudERheVwiIFwiQWdlXCIgICAgICAgICAgICBcIk5laWdoYm91cmhvb2RcIiAgXCJTY2hvbGFyc2hpcFwiICAgXG4gWzldIFwiSGlwZXJ0ZW5zaW9uXCIgICBcIkRpYWJldGVzXCIgICAgICAgXCJBbGNvaG9saXNtXCIgICAgIFwiSGFuZGNhcFwiICAgICAgICBcIlNNU19yZWNlaXZlZFwiICAgXCJOby5zaG93XCIgICAgICAgXG4ifQ== -->
+<pre><code> [1] &quot;PatientId&quot;      &quot;AppointmentID&quot;  &quot;Gender&quot;         &quot;ScheduledDay&quot;   &quot;AppointmentDay&quot; &quot;Age&quot;            &quot;Neighbourhood&quot;  &quot;Scholarship&quot;   
+ [9] &quot;Hipertension&quot;   &quot;Diabetes&quot;       &quot;Alcoholism&quot;     &quot;Handcap&quot;        &quot;SMS_received&quot;   &quot;No.show&quot;       </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>We have 13 features, let’s explore them furthermore:</p>
+<ol style="list-style-type: decimal">
+<li>“PatientId”: It is a unique identifier for each patient but would not be useful for any predictions.</li>
+<li>&quot;AppointmentId: It’s a unique identifier for each appointment.</li>
+<li>“Gender”: Whether the person is a Female denoted by F or Male denoted by M.</li>
+<li>“ScheduleDay”: The day on which appointment was scheduled.</li>
+<li>“AppointmentDay”: The day of the appointment.</li>
+<li>“Age”: Age of the person.</li>
+<li>“Neighbourhood”: The neighbourhood to which the person belongs.</li>
+<li>“Scholarship”: Whether the person had scholarship (defined <a href="https://en.wikipedia.org/wiki/Bolsa_Fam%C3%ADlia">Wikipedia</a>).</li>
+<li>“Hipertension”: Whether the person has hyptertension.</li>
+<li>“Diabeletes”: Whether the person has diabetes.</li>
+<li>“Alcoholism”: Whether the person is alcoholic.</li>
+<li>“Handcap”: Whether the person is physically challenged.</li>
+<li>“SMS_received”: Whether the person received a text message about the appointment.</li>
+</ol>
+<p>The target variable is:</p>
+<ol style="list-style-type: decimal">
+<li>“No.show”: Depicts whether the person didn’t show up for the appointment.</li>
+</ol>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShtZWRpY2FsLmRhdGFzZXQpXG5gYGAifQ== -->
+<pre class="r"><code>summary(medical.dataset)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgUGF0aWVudElkICAgICAgICAgQXBwb2ludG1lbnRJRCAgICAgR2VuZGVyICAgICAgICAgICAgICAgICAgU2NoZWR1bGVkRGF5ICAgICAgICAgICAgICAgICBBcHBvaW50bWVudERheSAgICAgICBBZ2UgICAgICAgIFxuIE1pbi4gICA6My45MjJlKzA0ICAgTWluLiAgIDo1MDMwMjMwICAgRjo3MTg0MCAgIDIwMTYtMDUtMDZUMDc6MDk6NTRaOiAgICAyNCAgIDIwMTYtMDYtMDZUMDA6MDA6MDBaOiA0NjkyICAgTWluLiAgIDogLTEuMDAgIFxuIDFzdCBRdS46NC4xNzNlKzEyICAgMXN0IFF1Ljo1NjQwMjg2ICAgTTozODY4NyAgIDIwMTYtMDUtMDZUMDc6MDk6NTNaOiAgICAyMyAgIDIwMTYtMDUtMTZUMDA6MDA6MDBaOiA0NjEzICAgMXN0IFF1LjogMTguMDAgIFxuIE1lZGlhbiA6My4xNzNlKzEzICAgTWVkaWFuIDo1NjgwNTczICAgICAgICAgICAgIDIwMTYtMDQtMjVUMTc6MTc6NDZaOiAgICAyMiAgIDIwMTYtMDUtMDlUMDA6MDA6MDBaOiA0NTIwICAgTWVkaWFuIDogMzcuMDAgIFxuIE1lYW4gICA6MS40NzVlKzE0ICAgTWVhbiAgIDo1Njc1MzA1ICAgICAgICAgICAgIDIwMTYtMDQtMjVUMTc6MTg6MjdaOiAgICAyMiAgIDIwMTYtMDUtMzBUMDA6MDA6MDBaOiA0NTE0ICAgTWVhbiAgIDogMzcuMDkgIFxuIDNyZCBRdS46OS40MzllKzEzICAgM3JkIFF1Ljo1NzI1NTI0ICAgICAgICAgICAgIDIwMTYtMDQtMjVUMTc6MTc6MjNaOiAgICAxOSAgIDIwMTYtMDYtMDhUMDA6MDA6MDBaOiA0NDc5ICAgM3JkIFF1LjogNTUuMDAgIFxuIE1heC4gICA6MS4wMDBlKzE1ICAgTWF4LiAgIDo1NzkwNDg0ICAgICAgICAgICAgIDIwMTYtMDQtMjVUMTc6MTk6MDNaOiAgICAxNSAgIDIwMTYtMDUtMTFUMDA6MDA6MDBaOiA0NDc0ICAgTWF4LiAgIDoxMTUuMDAgIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIChPdGhlcikgICAgICAgICAgICAgOjExMDQwMiAgIChPdGhlcikgICAgICAgICAgICAgOjgzMjM1ICAgICAgICAgICAgICAgICAgIFxuICAgICAgICAgTmVpZ2hib3VyaG9vZCAgICBTY2hvbGFyc2hpcCAgICAgICBIaXBlcnRlbnNpb24gICAgICAgRGlhYmV0ZXMgICAgICAgICBBbGNvaG9saXNtICAgICAgICBIYW5kY2FwICAgICAgICAgU01TX3JlY2VpdmVkICAgTm8uc2hvdyAgICBcbiBKQVJESU0gQ0FNQlVSSSA6IDc3MTcgICBNaW4uICAgOjAuMDAwMDAgICBNaW4uICAgOjAuMDAwMCAgIE1pbi4gICA6MC4wMDAwMCAgIE1pbi4gICA6MC4wMDAwICAgTWluLiAgIDowLjAwMDAwICAgTWluLiAgIDowLjAwMCAgIE5vIDo4ODIwOCAgXG4gTUFSSUEgT1JUSVogICAgOiA1ODA1ICAgMXN0IFF1LjowLjAwMDAwICAgMXN0IFF1LjowLjAwMDAgICAxc3QgUXUuOjAuMDAwMDAgICAxc3QgUXUuOjAuMDAwMCAgIDFzdCBRdS46MC4wMDAwMCAgIDFzdCBRdS46MC4wMDAgICBZZXM6MjIzMTkgIFxuIFJFU0lTVMOKTkNJQSAgICA6IDQ0MzEgICBNZWRpYW4gOjAuMDAwMDAgICBNZWRpYW4gOjAuMDAwMCAgIE1lZGlhbiA6MC4wMDAwMCAgIE1lZGlhbiA6MC4wMDAwICAgTWVkaWFuIDowLjAwMDAwICAgTWVkaWFuIDowLjAwMCAgICAgICAgICAgICAgXG4gSkFSRElNIERBIFBFTkhBOiAzODc3ICAgTWVhbiAgIDowLjA5ODI3ICAgTWVhbiAgIDowLjE5NzIgICBNZWFuICAgOjAuMDcxODYgICBNZWFuICAgOjAuMDMwNCAgIE1lYW4gICA6MC4wMjIyNSAgIE1lYW4gICA6MC4zMjEgICAgICAgICAgICAgIFxuIElUQVJBUsOJICAgICAgICA6IDM1MTQgICAzcmQgUXUuOjAuMDAwMDAgICAzcmQgUXUuOjAuMDAwMCAgIDNyZCBRdS46MC4wMDAwMCAgIDNyZCBRdS46MC4wMDAwICAgM3JkIFF1LjowLjAwMDAwICAgM3JkIFF1LjoxLjAwMCAgICAgICAgICAgICAgXG4gQ0VOVFJPICAgICAgICAgOiAzMzM0ICAgTWF4LiAgIDoxLjAwMDAwICAgTWF4LiAgIDoxLjAwMDAgICBNYXguICAgOjEuMDAwMDAgICBNYXguICAgOjEuMDAwMCAgIE1heC4gICA6NC4wMDAwMCAgIE1heC4gICA6MS4wMDAgICAgICAgICAgICAgIFxuIChPdGhlcikgICAgICAgIDo4MTg0OSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcbiJ9 -->
+<pre><code>   PatientId         AppointmentID     Gender                  ScheduledDay                 AppointmentDay       Age        
+ Min.   :3.922e+04   Min.   :5030230   F:71840   2016-05-06T07:09:54Z:    24   2016-06-06T00:00:00Z: 4692   Min.   : -1.00  
+ 1st Qu.:4.173e+12   1st Qu.:5640286   M:38687   2016-05-06T07:09:53Z:    23   2016-05-16T00:00:00Z: 4613   1st Qu.: 18.00  
+ Median :3.173e+13   Median :5680573             2016-04-25T17:17:46Z:    22   2016-05-09T00:00:00Z: 4520   Median : 37.00  
+ Mean   :1.475e+14   Mean   :5675305             2016-04-25T17:18:27Z:    22   2016-05-30T00:00:00Z: 4514   Mean   : 37.09  
+ 3rd Qu.:9.439e+13   3rd Qu.:5725524             2016-04-25T17:17:23Z:    19   2016-06-08T00:00:00Z: 4479   3rd Qu.: 55.00  
+ Max.   :1.000e+15   Max.   :5790484             2016-04-25T17:19:03Z:    15   2016-05-11T00:00:00Z: 4474   Max.   :115.00  
+                                                 (Other)             :110402   (Other)             :83235                   
+         Neighbourhood    Scholarship       Hipertension       Diabetes         Alcoholism        Handcap         SMS_received   No.show    
+ JARDIM CAMBURI : 7717   Min.   :0.00000   Min.   :0.0000   Min.   :0.00000   Min.   :0.0000   Min.   :0.00000   Min.   :0.000   No :88208  
+ MARIA ORTIZ    : 5805   1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.:0.000   Yes:22319  
+ RESISTÊNCIA    : 4431   Median :0.00000   Median :0.0000   Median :0.00000   Median :0.0000   Median :0.00000   Median :0.000              
+ JARDIM DA PENHA: 3877   Mean   :0.09827   Mean   :0.1972   Mean   :0.07186   Mean   :0.0304   Mean   :0.02225   Mean   :0.321              
+ ITARARÉ        : 3514   3rd Qu.:0.00000   3rd Qu.:0.0000   3rd Qu.:0.00000   3rd Qu.:0.0000   3rd Qu.:0.00000   3rd Qu.:1.000              
+ CENTRO         : 3334   Max.   :1.00000   Max.   :1.0000   Max.   :1.00000   Max.   :1.0000   Max.   :4.00000   Max.   :1.000              
+ (Other)        :81849                                                                                                                      </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>The <code>summary</code> fuinction gives a really descriptive summary of what the dataset includes but I find using plots more useful and more understandable to get the essence of the dataset.</p>
 <!-- rnb-text-end -->
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiRGF0YSBBbmFseXNpcyB1c2luZyBSIgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKLS0tCgojIyMgSW1wb3J0IG5lY2Vzc2FyeSBwYWNrYWdlcwoKSSB3aWxsIGZpcnN0IGltcG9ydCBhbGwgdGhlIG5lY2Vzc2FyeSBwYWNrYWdlcy4gQXMgSSdsbCBkbyBkYXRhIGFuYWx5c2lzLCBJJ2xsIHVzZSBSIGJ1aWx0IGluIGZ1bmN0aW9ucyBhbmQgYWxzbyBgZ2dwbG90YCB0byBwbG90IGNlcnRhaW4gZ3JhcGhzIGFib3V0IHRoZSBkYXRhIHRvIGdldCBiZXR0ZXIgaW5zaWdodHMgaW50byBpdC4KCmBgYHtyfQppbnN0YWxsLnBhY2thZ2VzKCdnZ3Bsb3QyJykKbGlicmFyeSgnZ2dwbG90MicpCmBgYAoKIyMjIEltcG9ydCBkYXRhCgpUaGUgbmV4dCBzdGVwIGlzIHRvIGltcG9ydCB0aGUgZGF0YSB0aGF0IHdlIHdpbGwgd29yayB3aXRoLiBJJ3ZlIHRha2VuIHRoZSBkYXRhc2V0IGZyb20gW0thZ2dsZV0oaHR0cHM6Ly93d3cua2FnZ2xlLmNvbS9qb25pYXJyb2JhL25vc2hvd2FwcG9pbnRtZW50cy9kb3dubG9hZCkgYWJvdXQgKiptZWRpY2FsIGFwcHBvaW50bWVudHMqKiB3aXRoIDEzIGZlYXR1cmVzIGFuZCBhIGxhYmxlIGRlc2NyaWJpbmcgd2hldGhlciB0aGUgcGVyc29uIHNob3dlZCB1cCBmb3IgdGhlIGFwcG9pbnRtZW50IG9yIG5vdC4KCmBgYHtyfQptZWRpY2FsLmRhdGFzZXQgPC0gcmVhZC5jc3YoJ2RhdGEvZGF0YXNldC5jc3YnLCBoZWFkZXIgPSBUUlVFLCBzZXAgPSAnLCcpCmhlYWQobWVkaWNhbC5kYXRhc2V0KQpgYGAKClRoZSBkYXRhc2V0IGlzIG5vdyBsb2FkZWQgaW50byB0aGUgbm90ZWJvb2suIExldCdzIHN0YXJ0IGV4cGxvcmluZyBtb3JlIGluZm9ybWF0aW9uIGFib3V0IHRoZSBkYXRhLgoKIyMjIEV4cGxvcmF0b3J5IGRhdGEgYW5hbHlzaXMKCiMjIyMgRGF0YXNldCBleHBsb3JhdGlvbgoKIyMjIyBWaXN1YWxpemF0aW9ucw==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRGF0YSBBbmFseXNpcyB1c2luZyBSIgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKLS0tCgojIyMgSW1wb3J0IG5lY2Vzc2FyeSBwYWNrYWdlcwoKSSB3aWxsIGZpcnN0IGltcG9ydCBhbGwgdGhlIG5lY2Vzc2FyeSBwYWNrYWdlcy4gQXMgSSdsbCBkbyBkYXRhIGFuYWx5c2lzLCBJJ2xsIHVzZSBSIGJ1aWx0IGluIGZ1bmN0aW9ucyBhbmQgYWxzbyBgZ2dwbG90YCB0byBwbG90IGNlcnRhaW4gZ3JhcGhzIGFib3V0IHRoZSBkYXRhIHRvIGdldCBiZXR0ZXIgaW5zaWdodHMgaW50byBpdC4KCmBgYHtyfQppbnN0YWxsLnBhY2thZ2VzKCdnZ3Bsb3QyJykKbGlicmFyeSgnZ2dwbG90MicpCmBgYAoKIyMjIEltcG9ydCBkYXRhCgpUaGUgbmV4dCBzdGVwIGlzIHRvIGltcG9ydCB0aGUgZGF0YSB0aGF0IHdlIHdpbGwgd29yayB3aXRoLiBJJ3ZlIHRha2VuIHRoZSBkYXRhc2V0IGZyb20gW0thZ2dsZV0oaHR0cHM6Ly93d3cua2FnZ2xlLmNvbS9qb25pYXJyb2JhL25vc2hvd2FwcG9pbnRtZW50cy9kb3dubG9hZCkgYWJvdXQgKiptZWRpY2FsIGFwcHBvaW50bWVudHMqKiB3aXRoIDEzIGZlYXR1cmVzIGFuZCBhIGxhYmxlIGRlc2NyaWJpbmcgd2hldGhlciB0aGUgcGVyc29uIHNob3dlZCB1cCBmb3IgdGhlIGFwcG9pbnRtZW50IG9yIG5vdC4KCmBgYHtyfQptZWRpY2FsLmRhdGFzZXQgPC0gcmVhZC5jc3YoJ2RhdGEvZGF0YXNldC5jc3YnLCBoZWFkZXIgPSBUUlVFLCBzZXAgPSAnLCcpCmhlYWQobWVkaWNhbC5kYXRhc2V0KQpgYGAKClRoZSBkYXRhc2V0IGlzIG5vdyBsb2FkZWQgaW50byB0aGUgbm90ZWJvb2suIExldCdzIHN0YXJ0IGV4cGxvcmluZyBtb3JlIGluZm9ybWF0aW9uIGFib3V0IHRoZSBkYXRhLgoKIyMjIEV4cGxvcmF0b3J5IGRhdGEgYW5hbHlzaXMKCkxldCdzIHN0YXJ0IHRoZSBleHBsb3JhdG9yeSBhbmFseXNpcyBvZiB0aGUgZGF0YXNldC4KCiMjIyMgRGF0YXNldCBleHBsb3JhdGlvbgoKTGV0J3MgZXhwbG9yZSB0aGUgaW5mb3JtYXRpb24gYWJvdXQgdGhlIGRhdHNldC4KCmBgYHtyfQpwcmludChwYXN0ZSgiUm93czogIiwgbnJvdyhtZWRpY2FsLmRhdGFzZXQpKSkKcHJpbnQocGFzdGUoIkNvbHVtbnM6ICIsIG5jb2wobWVkaWNhbC5kYXRhc2V0KSkpCmBgYAoKVGhlIGRhdGFzZXQgaGFzIDExMCw1Mjcgcm93cyBhbmQgMTQgY29sdW1ucyBvdXQgb2Ygd2hpY2ggd2Uga25vdyB3ZSBoYXZlIDEzIGZlYXR1cmVzIGFuZCAxIHRhcmdldC4KCmBgYHtyfQpuYW1lcyhtZWRpY2FsLmRhdGFzZXQpCmBgYAoKV2UgaGF2ZSAxMyBmZWF0dXJlcywgbGV0J3MgZXhwbG9yZSB0aGVtIGZ1cnRoZXJtb3JlOgoKMS4gIlBhdGllbnRJZCI6IEl0IGlzIGEgdW5pcXVlIGlkZW50aWZpZXIgZm9yIGVhY2ggcGF0aWVudCBidXQgd291bGQgbm90IGJlIHVzZWZ1bCBmb3IgYW55IHByZWRpY3Rpb25zLgoyLiAiQXBwb2ludG1lbnRJZDogSXQncyBhIHVuaXF1ZSBpZGVudGlmaWVyIGZvciBlYWNoIGFwcG9pbnRtZW50LgozLiAiR2VuZGVyIjogV2hldGhlciB0aGUgcGVyc29uIGlzIGEgRmVtYWxlIGRlbm90ZWQgYnkgRiBvciBNYWxlIGRlbm90ZWQgYnkgTS4KNC4gIlNjaGVkdWxlRGF5IjogVGhlIGRheSBvbiB3aGljaCBhcHBvaW50bWVudCB3YXMgc2NoZWR1bGVkLgo1LiAiQXBwb2ludG1lbnREYXkiOiBUaGUgZGF5IG9mIHRoZSBhcHBvaW50bWVudC4KNi4gIkFnZSI6IEFnZSBvZiB0aGUgcGVyc29uLgo3LiAiTmVpZ2hib3VyaG9vZCI6IFRoZSBuZWlnaGJvdXJob29kIHRvIHdoaWNoIHRoZSBwZXJzb24gYmVsb25ncy4KOC4gIlNjaG9sYXJzaGlwIjogV2hldGhlciB0aGUgcGVyc29uIGhhZCBzY2hvbGFyc2hpcCAoZGVmaW5lZCBbV2lraXBlZGlhXShodHRwczovL2VuLndpa2lwZWRpYS5vcmcvd2lraS9Cb2xzYV9GYW0lQzMlQURsaWEpKS4KOS4gIkhpcGVydGVuc2lvbiI6IFdoZXRoZXIgdGhlIHBlcnNvbiBoYXMgaHlwdGVydGVuc2lvbi4KMTAuICJEaWFiZWxldGVzIjogV2hldGhlciB0aGUgcGVyc29uIGhhcyBkaWFiZXRlcy4KMTEuICJBbGNvaG9saXNtIjogV2hldGhlciB0aGUgcGVyc29uIGlzIGFsY29ob2xpYy4KMTIuICJIYW5kY2FwIjogV2hldGhlciB0aGUgcGVyc29uIGlzIHBoeXNpY2FsbHkgY2hhbGxlbmdlZC4KMTMuICJTTVNfcmVjZWl2ZWQiOiBXaGV0aGVyIHRoZSBwZXJzb24gcmVjZWl2ZWQgYSB0ZXh0IG1lc3NhZ2UgYWJvdXQgdGhlIGFwcG9pbnRtZW50LgoKVGhlIHRhcmdldCB2YXJpYWJsZSBpczoKCjEuICJOby5zaG93IjogRGVwaWN0cyB3aGV0aGVyIHRoZSBwZXJzb24gZGlkbid0IHNob3cgdXAgZm9yIHRoZSBhcHBvaW50bWVudC4KCmBgYHtyfQpzdW1tYXJ5KG1lZGljYWwuZGF0YXNldCkKYGBgCgpUaGUgYHN1bW1hcnlgIGZ1aW5jdGlvbiBnaXZlcyBhIHJlYWxseSBkZXNjcmlwdGl2ZSBzdW1tYXJ5IG9mIHdoYXQgdGhlIGRhdGFzZXQgaW5jbHVkZXMgYnV0IEkgZmluZCB1c2luZyBwbG90cyBtb3JlIHVzZWZ1bCBhbmQgbW9yZSB1bmRlcnN0YW5kYWJsZSB0byBnZXQgdGhlIGVzc2VuY2Ugb2YgdGhlIGRhdGFzZXQuCg==</div>
 
 
 

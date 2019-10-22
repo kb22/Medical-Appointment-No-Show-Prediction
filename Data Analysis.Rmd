@@ -25,6 +25,45 @@ The dataset is now loaded into the notebook. Let's start exploring more informat
 
 ### Exploratory data analysis
 
+Let's start the exploratory analysis of the dataset.
+
 #### Dataset exploration
 
-#### Visualizations
+Let's explore the information about the datset.
+
+```{r}
+print(paste("Rows: ", nrow(medical.dataset)))
+print(paste("Columns: ", ncol(medical.dataset)))
+```
+
+The dataset has 110,527 rows and 14 columns out of which we know we have 13 features and 1 target.
+
+```{r}
+names(medical.dataset)
+```
+
+We have 13 features, let's explore them furthermore:
+
+1. "PatientId": It is a unique identifier for each patient but would not be useful for any predictions.
+2. "AppointmentId: It's a unique identifier for each appointment.
+3. "Gender": Whether the person is a Female denoted by F or Male denoted by M.
+4. "ScheduleDay": The day on which appointment was scheduled.
+5. "AppointmentDay": The day of the appointment.
+6. "Age": Age of the person.
+7. "Neighbourhood": The neighbourhood to which the person belongs.
+8. "Scholarship": Whether the person had scholarship (defined [Wikipedia](https://en.wikipedia.org/wiki/Bolsa_Fam%C3%ADlia)).
+9. "Hipertension": Whether the person has hyptertension.
+10. "Diabeletes": Whether the person has diabetes.
+11. "Alcoholism": Whether the person is alcoholic.
+12. "Handcap": Whether the person is physically challenged.
+13. "SMS_received": Whether the person received a text message about the appointment.
+
+The target variable is:
+
+1. "No.show": Depicts whether the person didn't show up for the appointment.
+
+```{r}
+summary(medical.dataset)
+```
+
+The `summary` fuinction gives a really descriptive summary of what the dataset includes but I find using plots more useful and more understandable to get the essence of the dataset.
