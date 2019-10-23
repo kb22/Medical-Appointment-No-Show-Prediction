@@ -145,3 +145,9 @@ ggplot(date.diff, aes(x = Days.difference)) + geom_bar() +
 ```
 
 Majority people schedule appointments 1-2 days before they plan to go. However, some few also have long term ideas and have scheudled appointments more than 50 days in advance rising upto 150+ days.
+
+Now, that we have a fairly good idea about the dataset. Let's save it in it's modified form and then use Python libraries to make prediction.
+
+```{r}
+write.csv(medical.dataset, file = 'data/dataset_modified.csv')
+```
