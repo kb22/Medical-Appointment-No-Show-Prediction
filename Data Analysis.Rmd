@@ -10,6 +10,8 @@ I will first import all the necessary packages. As I'll do data analysis, I'll u
 ```{r}
 install.packages('ggplot2')
 library('ggplot2')
+library('gridExtra')
+library('lubridate')
 ```
 
 ### Import data
@@ -42,6 +44,13 @@ The dataset has 110,527 rows and 14 columns out of which we know we have 13 feat
 names(medical.dataset)
 ```
 
+I'll start by renaming the target column as it's a negation. I'll also have to reverse the column values to accomodate this change.
+
+```{r}
+names(medical.dataset)[14] <- "Showed_up"
+medical.dataset$Showed_up <- medical.dataset$Showed_up == 'No'
+```
+
 We have 13 features, let's explore them furthermore:
 
 1. "PatientId": It is a unique identifier for each patient but would not be useful for any predictions.
@@ -60,10 +69,79 @@ We have 13 features, let's explore them furthermore:
 
 The target variable is:
 
-1. "No.show": Depicts whether the person didn't show up for the appointment.
+1. "Showed_up": Depicts whether the person showed up for the appointment.
 
 ```{r}
 summary(medical.dataset)
 ```
 
-The `summary` fuinction gives a really descriptive summary of what the dataset includes but I find using plots more useful and more understandable to get the essence of the dataset.
+The `summary` fuinction gives a really descriptive summary of what the dataset includes but I find using plots more useful and more understandable to get the essence of the dataset. Furthermore, the columns like Scholarship, Hipertension etc. are being considered as continuous values whereas they are just unqiue factors.
+
+But we can begin by working with the information we get above. The minimum value of `Age` is actually `-1` which seems to be erroneous. I'll remove the records that have these values.
+
+```{r}
+medical.dataset$ScheduledDay <- as.Date(medical.dataset$ScheduledDay)
+medical.dataset$AppointmentDay <- as.Date(medical.dataset$AppointmentDay)
+medical.dataset$Scholarship <-as.logical(medical.dataset$Scholarship)
+medical.dataset$Hipertension <-as.logical(medical.dataset$Hipertension)
+medical.dataset$Diabetes <-as.logical(medical.dataset$Diabetes)
+medical.dataset$Alcoholism <-as.logical(medical.dataset$Alcoholism)
+medical.dataset$Handcap <-as.logical(medical.dataset$Handcap)
+medical.dataset$SMS_received <-as.logical(medical.dataset$SMS_received)
+medical.dataset <- medical.dataset[medical.dataset$Age > 0, ]
+summary(medical.dataset)
+```
+
+```{r}
+```
+
+#### Visualizations
+
+Let's start by visualizing the data. I'll begin by visualizing the target distribution.
+
+```{r}
+ggplot(medical.dataset, aes(Showed_up)) + 
+  geom_bar(fill = 'white', color = 'orange', width = 0.4) + 
+  ggtitle("Did the person show for the appointment?") + 
+  labs(y="Count", x = "No show for appointment")
+```
+
+The dataset is highly skewed towards patients that showed up.
+
+Let's see the distribution between males and females.
+
+```{r}
+ggplot(medical.dataset, aes(Gender)) + 
+  geom_bar(fill = c('green', 'red'), color = c('green', 'red'), width = 0.4) + 
+  ggtitle("Gender appointment distribution") + 
+  labs(y="Count", x = "Gender") +
+  scale_x_discrete(labels=c("M" = "Male", "F" = "Female"))
+```
+
+This data is also skewed with more females as compared to males.
+
+Let's explore the other binary columns.
+
+```{r}
+grid.arrange(ggplot(medical.dataset, aes(x=Scholarship, fill=Showed_up)) + geom_bar(position="fill"),
+             ggplot(medical.dataset, aes(x=Hipertension, fill=Showed_up)) + geom_bar(position="fill"),
+             ggplot(medical.dataset, aes(x=Diabetes, fill=Showed_up)) + geom_bar(position="fill"),
+             ggplot(medical.dataset, aes(x=Alcoholism, fill=Showed_up)) + geom_bar(position="fill"),
+             ggplot(medical.dataset, aes(x=Handcap, fill=Showed_up)) + geom_bar(position="fill"),
+             ggplot(medical.dataset, aes(x=SMS_received, fill=Showed_up)) + geom_bar(position="fill"), ncol = 2)
+```
+
+The data distribution seems almost similar for either case of all binary columns.
+
+Let's see how early to people set up their appointments.
+
+```{r}
+date.diff <- as.data.frame(medical.dataset$AppointmentDay - medical.dataset$ScheduledDay)
+names(date.diff) <- 'Days.difference'
+date.diff$Days.difference <- as.numeric(date.diff$Days.difference)
+ggplot(date.diff, aes(x = Days.difference)) + geom_bar() +
+  ggtitle("How long before do people set up appointments?") +
+  labs(y="Count", x = "Days")
+```
+
+Majority people schedule appointments 1-2 days before they plan to go. However, some few also have long term ideas and have scheudled appointments more than 50 days in advance rising upto 150+ days.
