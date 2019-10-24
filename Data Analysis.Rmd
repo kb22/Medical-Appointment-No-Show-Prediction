@@ -149,5 +149,5 @@ Majority people schedule appointments 1-2 days before they plan to go. However, 
 Now, that we have a fairly good idea about the dataset. Let's save it in it's modified form and then use Python libraries to make prediction.
 
 ```{r}
-write.csv(medical.dataset, file = 'data/dataset_modified.csv')
+write.csv(medical.dataset, file = 'data/dataset_modified.csv', row.names=FALSE)
 ```
