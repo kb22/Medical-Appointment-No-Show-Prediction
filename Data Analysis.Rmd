@@ -112,7 +112,7 @@ Let's see the distribution between males and females.
 
 ```{r}
 ggplot(medical.dataset, aes(Gender)) + 
-  geom_bar(fill = c('green', 'red'), color = c('green', 'red'), width = 0.4) + 
+  geom_bar(fill = c('#00AFBB', '#FC4E07'), color = c('#00AFBB', '#FC4E07'), width = 0.4) + 
   ggtitle("Gender appointment distribution") + 
   labs(y="Count", x = "Gender") +
   scale_x_discrete(labels=c("M" = "Male", "F" = "Female"))
@@ -138,16 +138,67 @@ Let's see how early to people set up their appointments.
 ```{r}
 date.diff <- as.data.frame(medical.dataset$AppointmentDay - medical.dataset$ScheduledDay)
 names(date.diff) <- 'Days.difference'
-date.diff$Days.difference <- as.numeric(date.diff$Days.difference)
-ggplot(date.diff, aes(x = Days.difference)) + geom_bar() +
-  ggtitle("How long before do people set up appointments?") +
+medical.dataset$Date.diff <- as.numeric(unlist(date.diff))
+ggplot(medical.dataset, aes(x = Date.diff, fill = Showed_up)) + geom_bar() +
+  ggtitle("Difference between schedule day and appointment day") +
   labs(y="Count", x = "Days")
 ```
 
-Majority people schedule appointments 1-2 days before they plan to go. However, some few also have long term ideas and have scheudled appointments more than 50 days in advance rising upto 150+ days.
-
-Now, that we have a fairly good idea about the dataset. Let's save it in it's modified form and then use Python libraries to make prediction.
+Majority people schedule appointments 1-2 days before they plan to go. However, some few also have long term ideas and have scheudled appointments more than 50 days in advance rising upto 150+ days. To get a better essence, let's skip zero days and see how the data looks.
 
 ```{r}
-write.csv(medical.dataset, file = 'data/dataset_modified.csv', row.names=FALSE)
+ggplot(medical.dataset, aes(x = Date.diff, fill = Showed_up)) + geom_bar() +
+  ggtitle("Difference between schedule day and appointment day") +
+  labs(y="Count", x = "Days") + xlim(1,200)
+```
+
+It still doesn't reveal that much information about the relationship between these values and our target variable. Let's keep it for now and see if we can make more sense out of it using a correlation matrix.
+
+The time of the hour or the month of the appointment might also affect if someone shows up for an appointment or not. So, let's create that data and see if there is such as effect. I just noticed that the hour information of each appointment is the same so we can't use that.
+
+```{r}
+medical.dataset$Month <- month(medical.dataset$AppointmentDay)
+ggplot(medical.dataset, aes(x = Month, fill = Showed_up)) + geom_bar() +
+  ggtitle("Effect of month on appointment show ups") +
+  labs(y="Count", x = "Months")
+```
+
+There are very few appointments in April while May has the maximum number of appointments.
+
+```{r}
+month_tbl <- addmargins(table(medical.dataset$Month, medical.dataset$Showed_up))
+prop.table(table(medical.dataset$Month, medical.dataset$Showed_up), margin = 1)
+```
+
+As we can see from the data, the month has almost no effect on show ups as the false and true ratio is almost the same. We can thus drop the column itself.
+
+```{r}
+medical.dataset <- subset(medical.dataset, select = -Month)
+```
+
+```{r}
+unique(medical.dataset$Neighbourhood)
+ggplot(medical.dataset, aes(x = Neighbourhood, fill = Showed_up)) + 
+  geom_bar(identity = 'fill') + 
+  ggtitle("Neighborhoods vs Appointment count") + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 5))
+```
+
+`Jabour` has very high number of appointments while there are some neighbourhoods that have less than 10 appointments. We should keep the data but we will create dummy variables to accomodate each value in this column.
+
+```{r}
+age.show = as.data.frame(table(medical.dataset[medical.dataset$Showed_up == 'TRUE', ]$Age))
+age.no_show = as.data.frame(table(medical.dataset[medical.dataset$Showed_up == 'FALSE', ]$Age))
+ggplot(age.show, aes(x = Var1, y = Freq)) + geom_point(color = '#00AFBB') + geom_smooth(method = lm) +
+  geom_point(data = age.no_show, aes(y = Freq), color = '#FC4E07') +
+  scale_x_discrete(breaks = c(0, 25, 50, 75, 100, 125, 150), name = 'Age') +
+  ggtitle("Relationship between age, their counts and show up")
+```
+
+The plot reveals that the number of appointments vary greatly by age. The maximum appointments are for infants. There is a drop and then a spike at around the age of 50. Finally, as the agre progresses less and less people set up appointments. Thus, age might have an effect on the target variable too.
+
+Now, that we have a fairly good idea about the dataset. Let's save it in its modified form and then use Python libraries to make prediction.
+
+```{r}
+write.csv(medical.dataset, file = 'data/dataset_modified.csv', row.names = FALSE)
 ```
