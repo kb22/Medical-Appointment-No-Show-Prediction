@@ -166,7 +166,6 @@ ggplot(medical.dataset, aes(x = Month, fill = Showed_up)) + geom_bar() +
 There are very few appointments in April while May has the maximum number of appointments.
 
 ```{r}
-month_tbl <- addmargins(table(medical.dataset$Month, medical.dataset$Showed_up))
 prop.table(table(medical.dataset$Month, medical.dataset$Showed_up), margin = 1)
 ```
 
